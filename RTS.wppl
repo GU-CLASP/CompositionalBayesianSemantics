@@ -1,0 +1,45 @@
+// -*- mode:javascript -*-
+
+var loop = function(f,n) {
+  if (n == 0)
+    return;
+  else {
+    f(n);
+    loop(f,n-1);
+  }
+};
+
+var hyp = function(prop) {
+    if (!prop) {
+        factor(-Infinity)
+        // if the property is not satisfied, discard this run.
+    }
+}
+
+var sampleAndShow = function(d,n)  {
+    var iter = function(i) {
+        console.log(sample(d));
+    }
+    loop(iter,n);
+};
+
+var display = function(d,lo,hi,step)  {
+    if (lo < hi) {
+        console.log(lo + ": " + Math.exp(d.score(lo)));
+        display(d,lo+step,hi,step);
+    }
+}
+
+var expectedPortion = function(p) {
+    return Math.exp(Infer({method: 'MCMC', samples: 100}, p).score(true));
+}
+
+
+var mainDiscrete = function(model) {
+    Infer({method: 'MCMC', samples: 1000}, model);
+}
+
+var mainContinuous = function(model) {
+    var d = Infer({method: 'MCMC', samples: 100000}, model);
+    sampleAndShow(d,100000);
+}

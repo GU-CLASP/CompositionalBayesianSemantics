@@ -1,0 +1,1 @@
+nix-shell --pure --run "runhaskell $1"
